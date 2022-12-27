@@ -7,10 +7,13 @@ class App {
     constructor() {
         this.server = express();
 
+        this.name = "leandrozulis";
+        this.password = "lelezs22";
+
         mongoose.set('strictQuery', false)
 
         mongoose
-        .connect('mongodb+srv://leandrozulis:Le@1leandrinho@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority');
+        .connect(`mongodb+srv://${this.name}:${this.password}@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority`);
         
         this.middlewares();
         this.routes();

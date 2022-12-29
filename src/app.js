@@ -13,7 +13,9 @@ class App {
         mongoose.set('strictQuery', false)
 
         mongoose
-        .connect(`mongodb+srv://${this.name}:${this.password}@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority`);
+        .connect(`mongodb+srv://${this.name}:${this.password}@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority`)
+        .then(() => console.log('Banco iniciado!'))
+        .catch(err => console.log(err));
         
         this.middlewares();
         this.routes();

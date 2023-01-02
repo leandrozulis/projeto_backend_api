@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import path from 'path';
 import routes from './routes';
 
 class App {
@@ -13,15 +14,20 @@ class App {
         mongoose.set('strictQuery', false)
 
         mongoose
-        .connect(`mongodb+srv://${this.name}:${this.password}@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority`)
-        .then(() => console.log('Banco iniciado!'))
-        .catch(err => console.log(err));
-        
+            .connect(`mongodb+srv://${this.name}:${this.password}@devhouse.emgyr0t.mongodb.net/?retryWrites=true&w=majority`)
+            .then(() => console.log('Banco iniciado!'))
+            .catch(err => console.log(err));
+
         this.middlewares();
         this.routes();
     }
 
     middlewares() {
+        this.server.use(
+            '/files',
+            express.static(path.resolve(__dirname, '..', '..', 'upload'))
+        );
+
         this.server.use(express.json());
     }
 

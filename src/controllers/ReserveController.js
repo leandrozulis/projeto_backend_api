@@ -4,6 +4,16 @@ import House from '../models/House';
 
 class ReserveController {
 
+    async index(req, res) {
+
+        const { user_id } = req.headers;
+
+        const reserve = await Reserve.find({ user: user_id }).populate('house');
+
+        return res.json(reserve);
+
+    }
+
     async store(req, res) {
 
         const { user_id } = req.headers;
@@ -34,6 +44,24 @@ class ReserveController {
         await reserve.populate('house');
 
         return res.json(reserve);
+    }
+
+    async deploy(req, res) {
+
+        const { reserve_id } = req.body;
+        const { user_id } = req.headers;
+
+        const user = await User.findById(user_id);
+        const reserve = await Reserve.findById(reserve_id);
+
+        if (String(user._id) !== String(reserve.user._id)) { 
+            return res.status(401).json({Error: "Não autorizado!"});
+        }
+
+        await Reserve.findByIdAndDelete({ _id: reserve_id });
+
+        return res.send('Reserva deletada!');
+
     }
 
 

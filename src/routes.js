@@ -1,10 +1,11 @@
 import { Router } from 'express';
+import UploadConfig from '../config/upload';
+import multer from 'multer';
+
 import SessionController from './controllers/SessionController';
 import HouseController from './controllers/HouseController';
 import DashboardController from './controllers/DashboardController';
 import ReserveController from './controllers/ReserveController';
-import UploadConfig from '../config/upload';
-import multer from 'multer';
 
 const routes = new Router();
 const upload = multer(UploadConfig);
@@ -21,6 +22,9 @@ routes.delete('/houses', HouseController.destroy);
 //Dashboard
 routes.get('/dashboard', DashboardController.show);
 
-//Reserve
+// Reserve
 routes.post('/houses/:house_id/reserve', ReserveController.store);
+routes.get('/reserve', ReserveController.index);
+routes.delete('/reserve', ReserveController.deploy);
+
 export default routes;

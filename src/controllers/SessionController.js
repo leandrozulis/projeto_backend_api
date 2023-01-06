@@ -11,13 +11,19 @@ import User from '../models/User';
 
 class SessionController {
 
+    async index(req, res) {
+
+        return res.json(await User.find());
+
+    }
+
     async store(req, res) {
         const { email } = req.body;
 
         let user = await User.findOne({ email });
 
-        if(!user) {
-            user = await User.create({ email }); 
+        if (!user) {
+            user = await User.create({ email });
         }
 
         return res.json(user);

@@ -46,7 +46,7 @@ class ReserveController {
         return res.json(reserve);
     }
 
-    async deploy(req, res) {
+    async destroy(req, res) {
 
         const { reserve_id } = req.body;
         const { user_id } = req.headers;
@@ -54,8 +54,8 @@ class ReserveController {
         const user = await User.findById(user_id);
         const reserve = await Reserve.findById(reserve_id);
 
-        if (String(user._id) !== String(reserve.user._id)) { 
-            return res.status(401).json({Error: "Não autorizado!"});
+        if (String(user._id) !== String(reserve.user._id)) {
+            return res.status(401).json({ Error: "Não autorizado!" });
         }
 
         await Reserve.findByIdAndDelete({ _id: reserve_id });

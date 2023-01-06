@@ -12,6 +12,7 @@ const upload = multer(UploadConfig);
 
 //User
 routes.post('/sessions', SessionController.store);
+routes.get('/sessions', SessionController.index);
 
 //House
 routes.post('/houses', upload.single('thumbnail'), HouseController.store);
@@ -25,6 +26,6 @@ routes.get('/dashboard', DashboardController.show);
 // Reserve
 routes.post('/houses/:house_id/reserve', ReserveController.store);
 routes.get('/reserve', ReserveController.index);
-routes.delete('/reserve', ReserveController.deploy);
+routes.delete('/reserve', ReserveController.destroy);
 
 export default routes;
